@@ -1,0 +1,78 @@
+{
+  "connections": [
+    {
+      "id": "E0000000001",
+      "from": "N0000000001",
+      "to": "N0000000002",
+      "type": "husband-wife",
+      "color": {
+        "color": "#E81123"
+      },
+      "arrow": {},
+      "label": ""
+    },
+    {
+      "id": "E0000000002",
+      "from": "N0000000003",
+      "to": "N0000000001",
+      "type": "son-father",
+      "color": {
+        "color": "#00c300"
+      },
+      "arrows": {
+        "to": true
+      },
+      "label": ""
+    },
+    {
+      "id": "E0000000003",
+      "from": "N0000000003",
+      "to": "N0000000002",
+      "type": "son-mother",
+      "color": {
+        "color": "#00c300"
+      },
+      "arrows": {
+        "to": true
+      },
+      "label": ""
+    },
+    {
+      "id": "E0000000004",
+      "from": "N0000000004",
+      "to": "N0000000001",
+      "type": "daughter-father",
+      "color": {
+        "color": "#00c300"
+      },
+      "arrows": {
+        "to": true
+      },
+      "label": ""
+    },
+    {
+      "id": "E0000000005",
+      "from": "N0000000004",
+      "to": "N0000000002",
+      "type": "daughter-mother",
+      "color": {
+        "color": "#00c300"
+      },
+      "arrows": {
+        "to": true
+      },
+      "label": ""
+    },
+    {
+      "id": "E0000000006",
+      "from": "N0000000003",
+      "to": "N0000000004",
+      "type": "brother-sister",
+      "color": {
+        "color": "#FFB900"
+      },
+      "arrows": {},
+      "label": ""
+    }
+  ]
+}

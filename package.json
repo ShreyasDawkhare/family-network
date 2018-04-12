@@ -1,0 +1,27 @@
+{
+  "name": "family-network",
+  "version": "1.0.0",
+  "description": "family network map",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ShreyasDawkhare/family-network.git"
+  },
+  "author": "Shreyas Dawkhare",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ShreyasDawkhare/family-network/issues"
+  },
+  "homepage": "https://github.com/ShreyasDawkhare/family-network#readme",
+  "devDependencies": {
+    "nodemon": "^1.17.3"
+  },
+  "dependencies": {
+    "express": "^4.16.3",
+    "mongoose": "^5.0.14"
+  }
+}

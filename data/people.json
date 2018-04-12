@@ -1,0 +1,36 @@
+{
+  "people": [
+    {
+      "id": "N0000000001",
+      "firstname": "Jayant",
+      "lastname": "Dawkhare",
+      "gender": "Male",
+      "label": "Jayant",
+      "imageurl": ""
+    },
+    {
+      "id": "N0000000002",
+      "firstname": "Sangeeta",
+      "lastname": "Dawkhare",
+      "gender": "Female",
+      "label": "Sangeeta",
+      "imageurl": ""
+    },
+    {
+      "id": "N0000000003",
+      "firstname": "Shreyas",
+      "lastname": "Dawkhare",
+      "gender": "Male",
+      "label": "Shreyas",
+      "imageurl": ""
+    },
+    {
+      "id": "N0000000004",
+      "firstname": "Shruti",
+      "lastname": "Degaonkar",
+      "gender": "Female",
+      "label": "Shruti",
+      "imageurl": ""
+    }
+  ]
+}

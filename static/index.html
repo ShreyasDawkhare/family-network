@@ -1,0 +1,193 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="icon/favicon.ico">
+
+    <title>Network</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="css/starter-template.css" rel="stylesheet">
+
+    <!-- Viz JS -->
+    <script type="text/javascript" src="js/vis.js"></script>
+
+    <!-- Viz CSS -->
+    <link href="css/vis-network.min.css" rel="stylesheet" type="text/css" />
+
+  </head>
+
+  <body>
+
+    <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
+      <a class="navbar-brand" href="#">Navbar</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse" id="navbarsExampleDefault">
+        <form class="form-inline my-2 my-lg-0">
+          <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">
+          <button class="btn btn-outline-warning my-2 my-sm-0" type="submit">Search</button>
+        </form>
+      </div>
+      <button class="btn btn-outline-warning my-2 my-sm-0 btnRefresh">Refresh</button>
+    </nav>
+
+    <div class="starter-template" id="family-network"></div>
+
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script>window.jQuery || document.write('<script src="js/jquery-slim.min.js"><\/script>')</script>
+    <script src="js/popper.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script type="text/javascript">
+    var nodes = new vis.DataSet([
+      {id: 1, label: 'Jayant'},
+      {id: 2, label: 'Sangeeta'},
+      {id: 3, label: 'Shreyas', image: 'https://pbs.twimg.com/profile_images/916272641492652032/T_-68gOq_400x400.jpg'},
+      {id: 4, label: 'Shruti'}
+    ]);
+
+    // create an array with edges
+    var edges = new vis.DataSet([
+      {
+          from: 1,
+          to: 2,
+          color:{color:'#E81123'}
+      },
+      {
+          from: 3,
+          to: 1,
+          color:{color: '#00c300'},
+          arrows:{to: true,from: false}
+      },
+      {
+          from: 3,
+          to: 2,
+          color:{color:'#00c300'},
+          arrows:{to: true}
+      },
+      {
+          from: 4,
+          to: 1,
+          color:{color:'#00c300'},
+          arrows:{to: true}
+      },
+      {
+          from: 4,
+          to: 2,
+          color:{color:'#00c300'},
+          arrows:{to: true}
+      },
+      {
+          from: 3,
+          to: 4,
+          color:{color:'#FFB900'}
+      }
+    ]);
+      // create a network
+      var container = document.getElementById('family-network');
+      var data = {
+        nodes: nodes,
+        edges: edges
+      };
+      var options = {
+        autoResize: true,
+        height: '100%',
+        width: '100%',
+        locale: 'en',
+        nodes: {
+          borderWidth: 2,
+          borderWidthSelected: 2,
+          shape: 'circularImage',
+          brokenImage: 'icon/circle-dark.png',
+          image: '',
+          size: 40,
+          font: {
+            color: '#000000',
+            size: 14, // px
+            face: 'arial',
+            align: 'center'
+          },
+          color: {
+            border: '#2980b9',
+            background: '#3498db',
+            highlight: {
+              border: '#d35400',
+              background: '#e67e22'
+            },
+            hover: {
+              border: '#d35400',
+              background: '#e67e22'
+            }
+          }
+        },
+        edges:{
+          width: 2,
+          font: '12px arial #ff0000',
+          scaling:{
+            label: true,
+          },
+          smooth: true,
+          length: 260
+        },
+        interaction: {
+          hover: true,
+          hoverConnectedEdges: false,
+          selectConnectedEdges: true,
+        },
+        layout: {
+          randomSeed: 2911,
+          improvedLayout:true
+        }
+      };
+
+      var network = new vis.Network(container, data, options);
+      network.on("afterDrawing",foo);
+      function foo(){
+        console.log(network.getConnectedNodes(1));
+
+      }
+      $(document).ready(function(){
+        $(".btnRefresh").click(function(){
+          var nodes1 = new vis.DataSet([
+            {id: 1, label: 'Jayant'},
+            {id: 2, label: 'Sangeeta'},
+            {id: 3, label: 'Shreyas'}
+          ]);
+
+          // create an array with edges
+          var edges1 = new vis.DataSet([
+            {
+                from: 1,
+                to: 2,
+                arrows: 'to, from',
+                color: {
+                  color:'#848484',
+                  highlight:'#848484',
+                  hover: '#848484',
+                  inherit: 'from',
+                  opacity:1.0
+                }
+            },
+            {from: 3, to: 1},
+            {from: 3, to: 2}
+          ]);
+          var data = {
+            nodes:nodes1,
+            edges:edges1
+          };
+          network.setData(data);
+        });
+
+      });
+
+    </script>
+  </body>
+</html>
