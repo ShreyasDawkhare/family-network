@@ -5,6 +5,52 @@ var mongoose = require('mongoose'),
   People = mongoose.model('People'),
   Connections = mongoose.model('Connections');
 
+const ObjectId = mongoose.Types.ObjectId;
+
+
+exports.list_all = function(req, res) {
+  var nodes =[];
+  var edges =[];
+  var errors =[];
+  People.aggregate([
+      {
+          $project: {
+            _id: 0,
+            id: '$_id',
+            label: { $concat: [ '$firstname', " ", '$lastname' ] },
+            image: '$imageurl'
+          }
+      }
+    ], function (err, obj) {
+      if (err)
+        errors.push(err);
+      nodes = nodes.concat(obj);
+      Connections.aggregate([
+          {
+              $project: {
+                _id: 0,
+                from: 1,
+                to: 1,
+                color: 1,
+                arrows: '$arrow'
+              }
+          }
+      ], function (err, obj) {
+        if (err)
+          errors.push(err);
+        edges = edges.concat(obj);
+        if (errors.length != 0){
+          res.send(errors);
+        } else {
+          res.json({
+                    nodes: nodes,
+                    edges: edges
+                  });
+        }
+      });
+    });
+};
+
 /*
 * People CRUD operations
 *
@@ -12,12 +58,22 @@ var mongoose = require('mongoose'),
 
 // RETRIEVE ALL
 exports.list_all_people = function(req, res) {
-  People.find({}, function(err, obj) {
+  People.aggregate([
+      {
+          $project: {
+            _id: 0,
+            id: '$_id',
+            label: { $concat: [ '$firstname', " ", '$lastname' ] },
+            image: '$imageurl'
+          }
+      }
+  ], function (err, obj) {
     if (err)
       res.send(err);
     res.json(obj);
   });
 };
+
 
 // CREATE
 exports.create_a_person = function(req, res) {
@@ -31,7 +87,21 @@ exports.create_a_person = function(req, res) {
 
 // RETRIEVE
 exports.read_a_person = function(req, res) {
-  People.findById(req.params.personId, function(err, obj) {
+  People.aggregate([
+    {
+        $match : {
+          _id : ObjectId(req.params.personId)
+        }
+    },
+    {
+        $project: {
+          _id: 0,
+          id: '$_id',
+          label: { $concat: [ '$firstname', " ", '$lastname' ] },
+          image: '$imageurl'
+        }
+    }
+  ], function (err, obj) {
     if (err)
       res.send(err);
     res.json(obj);
@@ -65,7 +135,17 @@ exports.delete_a_person = function(req, res) {
 
 // RETRIEVE ALL
 exports.list_all_connections = function(req, res) {
-  Connections.find({}, function(err, obj) {
+  Connections.aggregate([
+      {
+          $project: {
+            _id: 0,
+            from: 1,
+            to: 1,
+            color: 1,
+            arrows: '$arrow'
+          }
+      }
+  ], function (err, obj) {
     if (err)
       res.send(err);
     res.json(obj);

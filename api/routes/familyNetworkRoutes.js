@@ -19,4 +19,7 @@ module.exports = function(app) {
     .get(familyNetwork.read_a_connection)
     .put(familyNetwork.update_a_connection)
     .delete(familyNetwork.delete_a_connection);
+
+  app.route('/all')
+    .get(familyNetwork.list_all);
 };

@@ -37,157 +37,99 @@
           <button class="btn btn-outline-warning my-2 my-sm-0" type="submit">Search</button>
         </form>
       </div>
-      <button class="btn btn-outline-warning my-2 my-sm-0 btnRefresh">Refresh</button>
+      <button class="btn btn-outline-warning my-2 mx-2 my-sm-0 btnRefresh">Refresh</button>
+      <button class="btn btn-outline-warning my-2 mx-2 my-sm-0 btnAddPersonModal" data-toggle="modal" data-target="#addPersonModal">Add person</button>
+      <button class="btn btn-outline-warning my-2 mx-2 my-sm-0 btnAddRelationModal" data-toggle="modal" data-target="#addRelationModal">Add relation</button>
+
     </nav>
 
     <div class="starter-template" id="family-network"></div>
 
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-    <script>window.jQuery || document.write('<script src="js/jquery-slim.min.js"><\/script>')</script>
-    <script src="js/popper.min.js"></script>
-    <script src="js/bootstrap.min.js"></script>
-    <script type="text/javascript">
-    var nodes = new vis.DataSet([
-      {id: 1, label: 'Jayant'},
-      {id: 2, label: 'Sangeeta'},
-      {id: 3, label: 'Shreyas', image: 'https://pbs.twimg.com/profile_images/916272641492652032/T_-68gOq_400x400.jpg'},
-      {id: 4, label: 'Shruti'}
-    ]);
+    <!-- Add Person Modal -->
+    <div class="modal fade" id="addPersonModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Add person</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <form id="addPersonForm">
+              <div class="form-group">
+                <label for="firstName">First name</label>
+                <input type="text" name="firstname" class="form-control" id="firstName" placeholder="Enter first name">
+              </div>
+              <div class="form-group">
+                <label for="lastName">Last name</label>
+                <input type="text" name="lastname" class="form-control" id="lastName" placeholder="Enter last name">
+              </div>
+              <div class="form-group">
+                <label for="gender">Gender</label>
+                <input type="text" name="gender" class="form-control" id="gender" placeholder="Enter gender">
+              </div>
+              <div class="form-group">
+                <label for="imageURL">Image URL</label>
+                <input type="text" name="imageurl" class="form-control" id="imageURL" placeholder="Enter image url">
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-primary" id="btnAddPersonSave">Add</button>
+          </div>
+        </div>
+      </div>
+    </div>
 
-    // create an array with edges
-    var edges = new vis.DataSet([
-      {
-          from: 1,
-          to: 2,
-          color:{color:'#E81123'}
-      },
-      {
-          from: 3,
-          to: 1,
-          color:{color: '#00c300'},
-          arrows:{to: true,from: false}
-      },
-      {
-          from: 3,
-          to: 2,
-          color:{color:'#00c300'},
-          arrows:{to: true}
-      },
-      {
-          from: 4,
-          to: 1,
-          color:{color:'#00c300'},
-          arrows:{to: true}
-      },
-      {
-          from: 4,
-          to: 2,
-          color:{color:'#00c300'},
-          arrows:{to: true}
-      },
-      {
-          from: 3,
-          to: 4,
-          color:{color:'#FFB900'}
-      }
-    ]);
-      // create a network
-      var container = document.getElementById('family-network');
-      var data = {
-        nodes: nodes,
-        edges: edges
-      };
-      var options = {
-        autoResize: true,
-        height: '100%',
-        width: '100%',
-        locale: 'en',
-        nodes: {
-          borderWidth: 2,
-          borderWidthSelected: 2,
-          shape: 'circularImage',
-          brokenImage: 'icon/circle-dark.png',
-          image: '',
-          size: 40,
-          font: {
-            color: '#000000',
-            size: 14, // px
-            face: 'arial',
-            align: 'center'
-          },
-          color: {
-            border: '#2980b9',
-            background: '#3498db',
-            highlight: {
-              border: '#d35400',
-              background: '#e67e22'
-            },
-            hover: {
-              border: '#d35400',
-              background: '#e67e22'
-            }
-          }
-        },
-        edges:{
-          width: 2,
-          font: '12px arial #ff0000',
-          scaling:{
-            label: true,
-          },
-          smooth: true,
-          length: 260
-        },
-        interaction: {
-          hover: true,
-          hoverConnectedEdges: false,
-          selectConnectedEdges: true,
-        },
-        layout: {
-          randomSeed: 2911,
-          improvedLayout:true
-        }
-      };
+    <!-- Add Relation Modal -->
+    <div class="modal fade" id="addRelationModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Add Relation</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <form id="addRelationForm">
+              <div class="form-group">
+                <label for="from">From</label>
+                <input type="text" name="from" class="form-control" id="from" placeholder="Enter from">
+              </div>
+              <div class="form-group">
+                <label for="to">To</label>
+                <input type="text" name="to" class="form-control" id="to" placeholder="Enter to">
+              </div>
+              <div class="form-group">
+                <label for="color">Color</label>
+                <input type="text" name="color.color" class="form-control" id="color" placeholder="Enter color">
+              </div>
+              <div class="form-group">
+                <label for="arrowfrom">Arrow from</label>
+                <input type="text" name="arrow.from" class="form-control" id="arrowfrom" placeholder="Enter arrow from">
+              </div>
+              <div class="form-group">
+                <label for="arrowto">Arrow to</label>
+                <input type="text" name="arrow.to" class="form-control" id="arrowto" placeholder="Enter arrow to">
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-primary" id="btnAddRelationSave">Add</button>
+          </div>
+        </div>
+      </div>
+    </div>
 
-      var network = new vis.Network(container, data, options);
-      network.on("afterDrawing",foo);
-      function foo(){
-        console.log(network.getConnectedNodes(1));
 
-      }
-      $(document).ready(function(){
-        $(".btnRefresh").click(function(){
-          var nodes1 = new vis.DataSet([
-            {id: 1, label: 'Jayant'},
-            {id: 2, label: 'Sangeeta'},
-            {id: 3, label: 'Shreyas'}
-          ]);
+    <script src="js/jquery.min.js" type="text/javascript"></script>
+    <script src="js/popper.min.js" type="text/javascript"></script>
+    <script src="js/bootstrap.min.js" type="text/javascript"></script>
+    <script src="js/app.js" type="text/javascript"></script>
 
-          // create an array with edges
-          var edges1 = new vis.DataSet([
-            {
-                from: 1,
-                to: 2,
-                arrows: 'to, from',
-                color: {
-                  color:'#848484',
-                  highlight:'#848484',
-                  hover: '#848484',
-                  inherit: 'from',
-                  opacity:1.0
-                }
-            },
-            {from: 3, to: 1},
-            {from: 3, to: 2}
-          ]);
-          var data = {
-            nodes:nodes1,
-            edges:edges1
-          };
-          network.setData(data);
-        });
-
-      });
-
-    </script>
   </body>
 </html>

@@ -4,6 +4,9 @@ var Schema = mongoose.Schema;
 
 
 var PeopleSchema = new Schema({
+  id: {
+    type: Schema.Types.ObjectId
+  },
   firstname: {
     type: String,
     required: 'Kindly enter the first name of the person'
@@ -27,6 +30,9 @@ var PeopleSchema = new Schema({
 });
 
 var ConnectionsSchema = new Schema({
+  id: {
+    type: Schema.Types.ObjectId
+  },
   from: {
     type: String
   },
@@ -34,18 +40,14 @@ var ConnectionsSchema = new Schema({
     type: String
   },
   relationtype: {
-    type: [{
-      type: String,
-      enum: ['husband-wife', 'son-father', 'son-mother', 'daughter-father', 'daughter-mother', 'brother-sister', 'unknown']
-    }],
+    type: String,
+    enum: ['husband-wife', 'son-father', 'son-mother', 'daughter-father', 'daughter-mother', 'siblings', 'unknown'],
     default: 'unknown'
   },
   color: {
       color: {
-        type: [{
-          type: String,
-          enum: ['#E81123', '#00c300', '#FFB900', '#000000']
-        }],
+        type: String,
+        enum: ['#E81123', '#00c300', '#FFB900', '#000000'],
         default: '#000000'
       }
   },
@@ -53,8 +55,11 @@ var ConnectionsSchema = new Schema({
   label: {
     type: String,
     default: ''
-  },
+  }
 });
 
-module.exports = mongoose.model('People', PeopleSchema);
-module.exports = mongoose.model('Connections', ConnectionsSchema);
+var People = mongoose.model('People', PeopleSchema);
+var Connections = mongoose.model('Connections', ConnectionsSchema);
+
+module.exports = People;
+module.exports = Connections;
