@@ -15,7 +15,7 @@
         borderWidth: 2,
         borderWidthSelected: 2,
         shape: 'circularImage',
-        brokenImage: 'icon/circle-dark.png',
+        //brokenImage: 'icon/circle-dark.png',
         image: '',
         size: 35,
         font: {
@@ -26,19 +26,19 @@
         },
         color: {
           border: '#2980b9',
-          background: '#3498db',
+          background: '#29B6F6',
           highlight: {
-            border: '#d35400',
-            background: '#e67e22'
+            border: '#E64A19',
+            background: '#FF5722'
           },
           hover: {
-            border: '#d35400',
-            background: '#e67e22'
+            border: '#E64A19',
+            background: '#FF5722'
           }
         }
       },
       edges:{
-        width: 2,
+        width: 3,
         font: '12px arial #ff0000',
         scaling:{
           label: true,
@@ -61,34 +61,13 @@
 
     var refresh = function(){
       jQuery.get( "all", function( data ) {
+        console.log(data);
         network.setData(data);
       });
     };
 
-    var addPersonSave = function(){
-      $.post( "people", $( "#addPersonForm" ).serialize() )
-          .done(function( data ) {
-              refresh();
-          });
-      $('#addPersonModal').modal('hide');
-    };
-
-    var addRelationSave = function(){
-      var data = $("#addRelationForm").serializeArray();
-      console.log(data);
-      $.post( "connections", $( "#addRelationForm" ).serialize() )
-          .done(function( data ) {
-              refresh();
-              console.log(data);
-          });
-      $('#addRelationModal').modal('hide');
-    };
-
     $(document).ready(function(){
       refresh();
-      $(".btnRefresh").click(refresh);
-      $("#btnAddPersonSave").click(addPersonSave);
-      $("#btnAddRelationSave").click(addRelationSave);
     });
 
 

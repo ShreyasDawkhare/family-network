@@ -29,6 +29,7 @@ exports.list_all = function(req, res) {
           {
               $project: {
                 _id: 0,
+                id: '$_id',
                 from: 1,
                 to: 1,
                 color: 1,
