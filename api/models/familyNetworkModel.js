@@ -34,10 +34,10 @@ var ConnectionsSchema = new Schema({
     type: Schema.Types.ObjectId
   },
   from: {
-    type: String
+    type: Schema.Types.ObjectId
   },
   to: {
-    type: String
+    type: Schema.Types.ObjectId
   },
   relationtype: {
     type: String,

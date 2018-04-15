@@ -22,4 +22,10 @@ module.exports = function(app) {
 
   app.route('/all')
     .get(familyNetwork.list_all);
+
+  app.route('/table/people')
+    .post(familyNetwork.table_update_person);
+
+  app.route('/table/connections')
+    .post(familyNetwork.table_update_connection);
 };

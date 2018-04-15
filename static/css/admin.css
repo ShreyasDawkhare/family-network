@@ -1,36 +1,14 @@
-body {
-    font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+.navbar-inverse {
+  background-color: #f44336;
+  border-color: #f44336;
 }
-.container-fluid {
-    width: 100%;
-    padding-right: 15px;
-    padding-left: 15px;
+.navbar-inverse .navbar-brand {
+    color: #FFFFFF;
 }
-.main-content{
-  padding: 20px;
+.navbar-inverse .navbar-nav>li>a {
+    color: #FFFFFF;
 }
-.sidebar{
-  overflow: hidden;
-  border-right: 1px solid #E0E0E0;
-  border-bottom: 1px solid #E0E0E0;
-  padding: 20px;
-}
-@media screen and (min-width: 600px) {
-  .sidebar{
-    height: 100vh;
-  }
-}
-.sidebar .nav > a {
-  padding: .25rem 1.5rem;
-  font-size: 100%;
-  color: #757575;
-}
-.sidebar .nav > a:hover {
-  color: #000000;
-  font-size: 115%;
-}
-.sidebar .nav > .active,
-.sidebar .nav > .active:hover {
-  font-size: 115%;
-  color: #000000;
+.navbar-inverse .navbar-nav>.active>a{
+    color: #000;
+    background-color: #fff;
 }

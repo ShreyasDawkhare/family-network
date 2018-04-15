@@ -1,0 +1,189 @@
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="icon/favicon.ico">
+
+    <title>Pricing example for Bootstrap</title>
+
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/jquery-ui.css" rel="stylesheet">
+
+    <!--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">-->
+    <link href="css/admin.css" rel="stylesheet">
+
+  </head>
+
+  <body>
+
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col d-flex flex-column flex-md-row align-items-center p-3 px-md-4 text-white bg-danger border-bottom box-shadow">
+          <h3 class="my-0 mr-md-auto font-weight-normal">Company name</h3>
+          <nav class="my-2 my-md-0 mr-md-3">
+            <a class="p-2 text-white" href="/">Home</a>
+            <a class="p-2 text-white" href="/admin.html">Admin</a>
+          </nav>
+          <!--<a class="btn btn-warning" href="#">Sign up</a>-->
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-lg-2 col-sm-3 sidebar">
+          <div class="nav flex-column" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+            <a class="nav-link active" id="v-pills-profile-tab" data-toggle="pill" href="#v-pills-profile" role="tab" aria-controls="v-pills-profile" aria-selected="false">Add person</a>
+            <a class="nav-link" id="v-pills-home-tab" data-toggle="pill" href="#v-pills-home" role="tab" aria-controls="v-pills-home" aria-selected="true">Add relationship</a>
+            <a class="nav-link" id="v-pills-messages-tab" data-toggle="pill" href="#v-pills-messages" role="tab" aria-controls="v-pills-messages" aria-selected="false">Messages</a>
+            <a class="nav-link" id="v-pills-settings-tab" data-toggle="pill" href="#v-pills-settings" role="tab" aria-controls="v-pills-settings" aria-selected="false">Settings</a>
+          </div>
+        </div>
+        <div class="col-lg-10 col-sm-7 main-content">
+          <div class="tab-content" id="v-pills-tabContent">
+            <div class="tab-pane fade" id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab">
+              <div class="jumbotron">
+                <h1 class="display-4">Add relationship</h1>
+                <hr class="my-4">
+                <p class="lead">Search for first person from the left search box similarly search for second one from the right search box. </p>
+                <p class="lead">Choose relationship type. Hit save. That's it!</p>
+                <hr class="my-4">
+                <ul class="nav nav-pills mb-3 relationship-types" id="pills-tab" role="tablist">
+                  <li class="nav-item">
+                    <a class="nav-link active" id="pills-home-tab" data-toggle="pill" href="#pills-home" role="tab" aria-controls="pills-home" aria-selected="true" data-relationtype="husband-wife" data-color="#E81123" data-arrowfrom="false" data-arrowto="false">husband-wife</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" id="pills-profile-tab" data-toggle="pill" href="#pills-profile" role="tab" aria-controls="pills-profile" aria-selected="false" data-relationtype="siblings" data-color="#FFB900" data-arrowfrom="false" data-arrowto="false">siblings</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" id="pills-contact-tab" data-toggle="pill" href="#pills-contact" role="tab" aria-controls="pills-contact" aria-selected="false" data-relationtype="son-mother" data-color="#00c300" data-arrowfrom="false" data-arrowto="true">son-mother</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link " id="pills-home-tab" data-toggle="pill" href="#pills-home" role="tab" aria-controls="pills-home" aria-selected="true" data-relationtype="son-father" data-color="#00c300" data-arrowfrom="false" data-arrowto="true">son-father</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" id="pills-profile-tab" data-toggle="pill" href="#pills-profile" role="tab" aria-controls="pills-profile" aria-selected="false" data-relationtype="daughter-mother" data-color="#00c300" data-arrowfrom="false" data-arrowto="true">daughter-mother</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" id="pills-contact-tab" data-toggle="pill" href="#pills-contact" role="tab" aria-controls="pills-contact" aria-selected="false" data-relationtype="daughter-father" data-color="#00c300" data-arrowfrom="false" data-arrowto="true">daughter-father</a>
+                  </li>
+                </ul>
+                <div class="row">
+                  <div class="col-lg-5">
+                    <div class="card">
+                      <div class="card-header">
+                        <form class="form-inline">
+                          <div class="form-group mx-sm-3 mb-2">
+                            <input type="text" class="form-control person-search" id="search-from" placeholder="Search...">
+                          </div>
+                        </form>
+                      </div>
+                      <div class="card-body">
+                        <div class="row">
+                          <div class="col-sm-3 image-from">
+                            <img src="icon/person-icon.png" alt="Profile picture" class="img-thumbnail">
+                          </div>
+                          <div class="col-sm-9">
+                            <h5 class="card-title name-from" data-personid="">First person</h5>
+                            <p class="card-text"></p>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-lg-5">
+                    <div class="card">
+                      <div class="card-header">
+                        <form class="form-inline">
+                          <div class="form-group mx-sm-3 mb-2">
+                            <input type="text" class="form-control person-search" id="search-to" placeholder="Search...">
+                          </div>
+                        </form>
+                      </div>
+                      <div class="card-body">
+                        <div class="row">
+                          <div class="col-sm-3 image-to">
+                            <img src="icon/person-icon.png" alt="Profile picture" class="img-thumbnail">
+                          </div>
+                          <div class="col-sm-9">
+                            <h5 class="card-title name-to" data-personid="">Second person</h5>
+                            <p class="card-text"></p>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col">
+                    <hr class="my-4">
+                    <button type="button" id="btnSaveRelationship" class="btn btn-success">Save</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="tab-pane fade  show active" id="v-pills-profile" role="tabpanel" aria-labelledby="v-pills-profile-tab">
+              <div class="jumbotron">
+                <h1 class="display-4">Add person</h1>
+                <hr class="my-4">
+                <p class="lead">Enter primary details and add yourself in the network.</p>
+                <hr class="my-4">
+                <form id="addPersonForm">
+                  <div class="form-group">
+                    <label for="firstName">First name</label>
+                    <input type="text" name="firstname" class="form-control" id="firstName" placeholder="Enter first name">
+                  </div>
+                  <div class="form-group">
+                    <label for="lastName">Last name</label>
+                    <input type="text" name="lastname" class="form-control" id="lastName" placeholder="Enter last name">
+                  </div>
+                  <div class="form-group">
+                    <label for="gender">Gender</label>
+                    <input type="text" name="gender" class="form-control" id="gender" placeholder="Enter gender">
+                  </div>
+                  <div class="form-group">
+                    <label for="imageURL">Image URL</label>
+                    <input type="text" name="imageurl" class="form-control" id="imageURL" placeholder="Enter image url">
+                  </div>
+                  <button type="button" class="btn btn-primary" id="btnAddPersonSave">Add</button>
+                </form>
+              </div>
+              <table id="editable_table" class="table table-bordered table-striped">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>First name</th>
+                        <th>Last name</th>
+                        <th>Gender</th>
+                        <th>Image URL</th>
+                    </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>5acf5f3a2a47d53e89538bd4</td>
+                    <td>Shreyas</td>
+                    <td>Dawkhare</td>
+                    <td>male</td>
+                    <td>https://pbs.twimg.com/profile_images/916272641492652032/T_-68gOq_400x400.jpg</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="tab-pane fade" id="v-pills-messages" role="tabpanel" aria-labelledby="v-pills-messages-tab">...</div>
+            <div class="tab-pane fade" id="v-pills-settings" role="tabpanel" aria-labelledby="v-pills-settings-tab">...</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script src="js/jquery.min.js" type="text/javascript"></script>
+    <script src="js/popper.min.js" type="text/javascript"></script>
+    <script src="js/bootstrap.min.js" type="text/javascript"></script>
+    <script src="js/jquery-ui.js" type="text/javascript"></script>
+    <script src="js/jquery.tabledit.min.js" type="text/javascript"></script>
+
+    <!--<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>-->
+
+    <script src="js/admin.js" type="text/javascript"></script>
+  </body>
+</html>

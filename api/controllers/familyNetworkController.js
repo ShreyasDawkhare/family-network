@@ -17,6 +17,9 @@ exports.list_all = function(req, res) {
           $project: {
             _id: 0,
             id: '$_id',
+            firstname: 1,
+            lastname: 1,
+            gender: 1,
             label: { $concat: [ '$firstname', " ", '$lastname' ] },
             image: '$imageurl'
           }
@@ -26,16 +29,17 @@ exports.list_all = function(req, res) {
         errors.push(err);
       nodes = nodes.concat(obj);
       Connections.aggregate([
-          {
-              $project: {
-                _id: 0,
-                id: '$_id',
-                from: 1,
-                to: 1,
-                color: 1,
-                arrows: '$arrow'
-              }
-          }
+        {
+            $project: {
+              _id: 0,
+              id: '$_id',
+              from: 1,
+              to: 1,
+              color: 1,
+              relationtype: 1,
+              arrows: '$arrow'
+            }
+        } 
       ], function (err, obj) {
         if (err)
           errors.push(err);
@@ -190,4 +194,59 @@ exports.delete_a_connection = function(req, res) {
       res.send(err);
     res.json({ object: obj, message: 'Connection successfully deleted' });
   });
+};
+
+
+/*
+* Table
+*
+*/
+
+// UPDATE
+exports.table_update_person = function(req, res) {
+  if(req.body.action == 'edit'){
+    var id = req.body.id;
+    delete req.body.action;
+    delete req.body.id;
+    People.findOneAndUpdate({_id: id}, req.body, {new: true}, function(err, obj) {
+      if (err)
+        res.send(err);
+      res.json(obj);
+    });
+  } else if(req.body.action == 'delete') {
+    People.remove({
+      _id: req.body.id
+    }, function(err, obj) {
+      if (err)
+        res.send(err);
+      res.json({ object: obj, message: 'Perosn successfully deleted' });
+    });
+  } else {
+    res.send({error:'Error'});
+  }
+
+};
+
+exports.table_update_connection = function(req, res) {
+  if(req.body.action == 'edit'){
+    var id = req.body.id;
+    delete req.body.action;
+    delete req.body.id;
+    Connections.findOneAndUpdate({_id: id}, req.body, {new: true}, function(err, obj) {
+      if (err)
+        res.send(err);
+      res.json(obj);
+    });
+  } else if(req.body.action == 'delete') {
+    Connections.remove({
+      _id: req.body.id
+    }, function(err, obj) {
+      if (err)
+        res.send(err);
+      res.json({ object: obj, message: 'Relationship successfully deleted' });
+    });
+  } else {
+    res.send({error:'Error'});
+  }
+
 };
