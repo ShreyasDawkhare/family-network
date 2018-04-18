@@ -2,16 +2,8 @@
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
-
 var PeopleSchema = new Schema({
-  id: {
-    type: Schema.Types.ObjectId
-  },
-  firstname: {
-    type: String,
-    required: 'Kindly enter the first name of the person'
-  },
-  lastname: {
+  name: {
     type: String,
     required: 'Kindly enter the last name of the person'
   },
@@ -19,20 +11,15 @@ var PeopleSchema = new Schema({
     type: String,
     required: 'Kindly enter the gender of the person [male / female]'
   },
-  label: {
-    type: String,
-    default: ''
-  },
   imageurl: {
     type: String,
     default: ''
-  }
+  },
+  connections: [String],
+  neighbours: [String]
 });
 
 var ConnectionsSchema = new Schema({
-  id: {
-    type: Schema.Types.ObjectId
-  },
   from: {
     type: Schema.Types.ObjectId
   },
@@ -43,18 +30,6 @@ var ConnectionsSchema = new Schema({
     type: String,
     enum: ['husband-wife', 'son-father', 'son-mother', 'daughter-father', 'daughter-mother', 'siblings', 'unknown'],
     default: 'unknown'
-  },
-  color: {
-      color: {
-        type: String,
-        enum: ['#E81123', '#00c300', '#FFB900', '#000000'],
-        default: '#000000'
-      }
-  },
-  arrow: { to: { type: Boolean, default: false }, from: { type: Boolean, default: false } },
-  label: {
-    type: String,
-    default: ''
   }
 });
 

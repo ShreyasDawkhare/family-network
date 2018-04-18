@@ -54,11 +54,19 @@
       layout: {
         randomSeed: 0,
         improvedLayout:true
+      },
+      physics: {
+        barnesHut: {
+          avoidOverlap: 1
+        }
       }
     };
 
     var network = new vis.Network(container, data, options);
+    network.on("doubleClick", function (params) {
+        console.log(params);
 
+    });
     var refresh = function(){
       jQuery.get( "/all", function( data ) {
         console.log(data);

@@ -35,8 +35,9 @@
                 <!-- This is  -->
                 <li class="nav-item"> <a class="nav-link nav-toggler hidden-md-up text-muted waves-effect waves-dark" href="javascript:void(0)"><i class="ti-menu"></i></a> </li>
                 <li class="nav-item hidden-sm-down">
-                    <form class="app-search p-l-20">
-                        <input type="text" class="form-control" placeholder="Search for..."> <a class="srh-btn"><i class="ti-search"></i></a>
+                    <form action="traverse.html" method="get" class="app-search p-l-20">
+                        <input type="text" id="header-search" class="form-control" placeholder="Search for..."> <a class="srh-btn"><i class="ti-search"></i></a>
+                        <input type="hidden" name="id" id="header-search-id" class="form-control" >
                     </form>
                 </li>
             </ul>

@@ -44,7 +44,7 @@ $(function(){
     for(i in data.edges){
       var f = getPersonById(data.edges[i].from);
       var t = getPersonById(data.edges[i].to);
-      $("#connections-table tbody").append("<tr><td style='display:none;'>"+data.edges[i].id+"</td><td>"+f[0].firstname+" "+f[0].lastname+"</td><td>"+data.edges[i].relationtype+"</td><td>"+t[0].firstname+" "+t[0].lastname+"</td></tr>");
+      $("#connections-table tbody").append("<tr><td style='display:none;'>"+data.edges[i].id+"</td><td>"+f[0].label+"</td><td>"+data.edges[i].relationtype+"</td><td>"+t[0].label+"</td></tr>");
     }
     $('#connections-table').Tabledit({
       url: '/table/connections',
@@ -62,14 +62,10 @@ $(function(){
   var addConnectionSave = function(){
     var fromid = $("#add-from").attr("data-personid");
     var toid = $("#add-to").attr("data-personid");
-    var color = { color: getColorRelation()[$("#add-relationship").val()] };
     var relationtype = $("#add-relationship").val();
-    var arrow = getArrowforRelation($("#add-relationship").val());
     var data = {
       from:fromid,
       to:toid,
-      color:color,
-      arrow:arrow,
       relationtype:relationtype
     };
     $.post( "/connections", data)

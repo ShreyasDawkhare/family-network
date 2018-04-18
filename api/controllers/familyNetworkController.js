@@ -7,7 +7,6 @@ var mongoose = require('mongoose'),
 
 const ObjectId = mongoose.Types.ObjectId;
 
-
 exports.list_all = function(req, res) {
   var nodes =[];
   var edges =[];
@@ -17,11 +16,11 @@ exports.list_all = function(req, res) {
           $project: {
             _id: 0,
             id: '$_id',
-            firstname: 1,
-            lastname: 1,
             gender: 1,
-            label: { $concat: [ '$firstname', " ", '$lastname' ] },
-            image: '$imageurl'
+            label: '$name',
+            image: '$imageurl',
+            connections: 1,
+            neighbours: 1
           }
       }
     ], function (err, obj) {
@@ -35,15 +34,18 @@ exports.list_all = function(req, res) {
               id: '$_id',
               from: 1,
               to: 1,
-              color: 1,
-              relationtype: 1,
-              arrows: '$arrow'
+              relationtype: 1
             }
-        } 
+        }
       ], function (err, obj) {
         if (err)
           errors.push(err);
         edges = edges.concat(obj);
+        var color_map = getColorRelation();
+        for(var i=0; i<edges.length; i++){
+          edges[i].color = {color: color_map[edges[i].relationtype]};
+          edges[i].arrows = getArrowforRelation(edges[i].relationtype);
+        }
         if (errors.length != 0){
           res.send(errors);
         } else {
@@ -56,55 +58,18 @@ exports.list_all = function(req, res) {
     });
 };
 
-/*
-* People CRUD operations
-*
-*/
-
-// RETRIEVE ALL
-exports.list_all_people = function(req, res) {
-  People.aggregate([
-      {
-          $project: {
-            _id: 0,
-            id: '$_id',
-            label: { $concat: [ '$firstname', " ", '$lastname' ] },
-            image: '$imageurl'
-          }
-      }
-  ], function (err, obj) {
-    if (err)
-      res.send(err);
-    res.json(obj);
-  });
-};
-
-
-// CREATE
-exports.create_a_person = function(req, res) {
-  var new_person = new People(req.body);
-  new_person.save(function(err, obj) {
-    if (err)
-      res.send(err);
-    res.json(obj);
-  });
-};
-
-// RETRIEVE
-exports.read_a_person = function(req, res) {
+exports.search_autocomplete = function(req, res) {
   People.aggregate([
     {
-        $match : {
-          _id : ObjectId(req.params.personId)
-        }
+      $match: {  'name': { $regex: req.query.term, $options: 'i'}  },
     },
     {
-        $project: {
-          _id: 0,
-          id: '$_id',
-          label: { $concat: [ '$firstname', " ", '$lastname' ] },
-          image: '$imageurl'
-        }
+      $project:{
+        _id:0,
+        id: "$_id",
+        label: "$name",
+        value: "$name"
+      }
     }
   ], function (err, obj) {
     if (err)
@@ -113,140 +78,23 @@ exports.read_a_person = function(req, res) {
   });
 };
 
-// UPDATE
-exports.update_a_person = function(req, res) {
-  People.findOneAndUpdate({_id: req.params.personId}, req.body, {new: true}, function(err, obj) {
-    if (err)
-      res.send(err);
-    res.json(obj);
-  });
+var getColorRelation = function(){
+  return {
+    'husband-wife': "#E81123",
+    'son-father': "#00c300",
+    'son-mother':"#00c300",
+    'daughter-father':"#00c300",
+    'daughter-mother':"#00c300",
+    'siblings':"#FFB900"
+  };
 };
-
-// DELETE
-exports.delete_a_person = function(req, res) {
-  People.remove({
-    _id: req.params.personId
-  }, function(err, obj) {
-    if (err)
-      res.send(err);
-    res.json({ object: obj, message: 'Perosn successfully deleted' });
-  });
-};
-
-/*
-* Connections CRUD operations
-*
-*/
-
-// RETRIEVE ALL
-exports.list_all_connections = function(req, res) {
-  Connections.aggregate([
-      {
-          $project: {
-            _id: 0,
-            from: 1,
-            to: 1,
-            color: 1,
-            arrows: '$arrow'
-          }
-      }
-  ], function (err, obj) {
-    if (err)
-      res.send(err);
-    res.json(obj);
-  });
-};
-
-// CREATE
-exports.create_a_connection = function(req, res) {
-  var new_connection = new Connections(req.body);
-  new_connection.save(function(err, obj) {
-    if (err)
-      res.send(err);
-    res.json(obj);
-  });
-};
-
-// RETRIEVE
-exports.read_a_connection = function(req, res) {
-  Connections.findById(req.params.connectionId, function(err, obj) {
-    if (err)
-      res.send(err);
-    res.json(obj);
-  });
-};
-
-// UPDATE
-exports.update_a_connection = function(req, res) {
-  Connections.findOneAndUpdate({_id: req.params.connectionId}, req.body, {new: true}, function(err, obj) {
-    if (err)
-      res.send(err);
-    res.json(obj);
-  });
-};
-
-// DELETE
-exports.delete_a_connection = function(req, res) {
-  Connections.remove({
-    _id: req.params.connectionId
-  }, function(err, obj) {
-    if (err)
-      res.send(err);
-    res.json({ object: obj, message: 'Connection successfully deleted' });
-  });
-};
-
-
-/*
-* Table
-*
-*/
-
-// UPDATE
-exports.table_update_person = function(req, res) {
-  if(req.body.action == 'edit'){
-    var id = req.body.id;
-    delete req.body.action;
-    delete req.body.id;
-    People.findOneAndUpdate({_id: id}, req.body, {new: true}, function(err, obj) {
-      if (err)
-        res.send(err);
-      res.json(obj);
-    });
-  } else if(req.body.action == 'delete') {
-    People.remove({
-      _id: req.body.id
-    }, function(err, obj) {
-      if (err)
-        res.send(err);
-      res.json({ object: obj, message: 'Perosn successfully deleted' });
-    });
-  } else {
-    res.send({error:'Error'});
+var getArrowforRelation = function(relationship){
+  switch(relationship) {
+    case 'husband-wife': return {to:false,from:false};
+    case 'son-father': return {to:true,from:false};
+    case 'son-mother': return {to:true,from:false};
+    case 'daughter-father': return {to:true,from:false};
+    case 'daughter-mother': return {to:true,from:false};
+    case 'siblings': return {to:false,from:false};
   }
-
-};
-
-exports.table_update_connection = function(req, res) {
-  if(req.body.action == 'edit'){
-    var id = req.body.id;
-    delete req.body.action;
-    delete req.body.id;
-    Connections.findOneAndUpdate({_id: id}, req.body, {new: true}, function(err, obj) {
-      if (err)
-        res.send(err);
-      res.json(obj);
-    });
-  } else if(req.body.action == 'delete') {
-    Connections.remove({
-      _id: req.body.id
-    }, function(err, obj) {
-      if (err)
-        res.send(err);
-      res.json({ object: obj, message: 'Relationship successfully deleted' });
-    });
-  } else {
-    res.send({error:'Error'});
-  }
-
 };
