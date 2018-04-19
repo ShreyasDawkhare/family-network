@@ -1,5 +1,6 @@
 $(function(){
   var data;
+  var ConnectionEdges = new vis.DataSet();
   var availableTags = [];
   var getColorRelation = function(){
     return color_relation_map = {
@@ -24,6 +25,7 @@ $(function(){
   var refresh = function(){
     jQuery.get( "/all", function( d ) {
       data = d;
+      ConnectionEdges = new vis.DataSet(d.edges);
       if(availableTags.length <= 0) {
         for (var i in data.nodes) {
             availableTags.push({label:data.nodes[i].label,value:data.nodes[i].label, index:i});
@@ -63,18 +65,30 @@ $(function(){
     var fromid = $("#add-from").attr("data-personid");
     var toid = $("#add-to").attr("data-personid");
     var relationtype = $("#add-relationship").val();
-    var data = {
-      from:fromid,
-      to:toid,
-      relationtype:relationtype
-    };
-    $.post( "/connections", data)
-        .done(function( data ) {
-          $("#add-from").val('');
-          $("#add-relationship").val('');
-          $("#add-to").val('');
-          refresh();
-        });
+    var edges = ConnectionEdges.get({
+      filter: function (item) {
+        return ((item.from.toString() == fromid && item.to.toString() == toid) || (item.to.toString() == fromid && item.from.toString() == toid));
+      }
+    });
+    if(edges.length <= 0){
+      console.log("not present");
+      var data = {
+        from:fromid,
+        to:toid,
+        relationtype:relationtype
+      };
+      $.post( "/connections", data)
+          .done(function( data ) {
+            $("#add-from").val('');
+            $("#add-relationship").val('');
+            $("#add-to").val('');
+            refresh();
+          });
+
+    } else {
+      console.log("already present");
+    }
+
   };
   var refreshCallback = function(){
     refreshConnectionsData();

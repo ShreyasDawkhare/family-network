@@ -44,7 +44,7 @@
           label: true,
         },
         smooth: true,
-        length: 260
+        length: 400
       },
       interaction: {
         hover: true,
