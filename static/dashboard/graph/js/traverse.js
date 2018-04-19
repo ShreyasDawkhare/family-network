@@ -51,12 +51,15 @@
           label: true,
         },
         smooth: true,
-        length: 260
+        length: 450,
+        color:{
+          highlight: '#FF5722'
+        }
       },
       interaction: {
-        hover: true,
+        hover: false,
         hoverConnectedEdges: false,
-        selectConnectedEdges: true,
+        selectConnectedEdges: false,
       },
       layout: {
         randomSeed: 0,
@@ -115,8 +118,7 @@
             nodes:traverseDataNodes,
             edges:traverseDataEdges
           });
-          network.selectNodes([]);
-          network.selectEdges([]);
+          network.unselectAll();
           network.setSelection(setSelectionData);
         }, 200);
 
