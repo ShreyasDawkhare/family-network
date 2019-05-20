@@ -3,7 +3,11 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
 var PeopleSchema = new Schema({
-  name: {
+  firstname: {
+    type: String,
+    required: 'Kindly enter the first name of the person'
+  },
+  lastname: {
     type: String,
     required: 'Kindly enter the last name of the person'
   },

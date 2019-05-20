@@ -26,7 +26,7 @@ $(function(){
       data = d;
       if(availableTags.length <= 0) {
         for (var i in data.nodes) {
-            availableTags.push({label:data.nodes[i].label,value:data.nodes[i].label, index:i});
+            availableTags.push({label:data.nodes[i].firstname+' '+data.nodes[i].lastname,value:data.nodes[i].firstname+' '+data.nodes[i].lastname, index:i});
         }
       }
       refreshCallback();
@@ -35,7 +35,9 @@ $(function(){
   var refreshPeopleData = function(){
     $(".people-table-container").html('<table id="people-table" class="table table-bordered table-striped table-responsive"><thead><tr><th style="display:none;">ID</th><th>First Name</th><th>Last Name</th><th>Gender</th><th>ImageURL</th></tr></thead><tbody></tbody></table>');
     for(i in data.nodes){
-      $("#people-table tbody").append("<tr><td style='display:none;'>"+data.nodes[i].id+"</td><td>"+data.nodes[i].firstname+"</td><td>"+data.nodes[i].lastname+"</td><td>"+data.nodes[i].gender+"</td><td>"+data.nodes[i].image+"</td></tr>");
+      var fname = data.nodes[i].firstname;
+      var lname = data.nodes[i].lastname;
+      $("#people-table tbody").append("<tr><td style='display:none;'>"+data.nodes[i].id+"</td><td>"+fname+"</td><td>"+lname+"</td><td>"+data.nodes[i].gender+"</td><td>"+data.nodes[i].image+"</td></tr>");
     }
     $('#people-table').Tabledit({
       url: '/table/people',
@@ -63,7 +65,7 @@ $(function(){
     for(i in data.edges){
       var f = getPersonById(data.edges[i].from);
       var t = getPersonById(data.edges[i].to);
-      $("#connections-table tbody").append("<tr><td style='display:none;'>"+data.edges[i].id+"</td><td>"+f[0].firstname+" "+f[0].lastname+"</td><td>"+data.edges[i].relationtype+"</td><td>"+t[0].firstname+" "+t[0].lastname+"</td></tr>");
+      $("#connections-table tbody").append("<tr><td style='display:none;'>"+data.edges[i].id+"</td><td>"+f[0].firstname+' '+f[0].lastname+"</td><td>"+data.edges[i].relationtype+"</td><td>"+t[0].firstname+' '+t[0].lastname+"</td></tr>");
     }
     $('#connections-table').Tabledit({
       url: '/table/connections',

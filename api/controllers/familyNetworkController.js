@@ -17,7 +17,9 @@ exports.list_all = function(req, res) {
             _id: 0,
             id: '$_id',
             gender: 1,
-            label: '$name',
+            label : '$firstname' ,
+            firstname: '$firstname',
+            lastname : '$lastname',
             image: '$imageurl',
             connections: 1,
             neighbours: 1
@@ -67,8 +69,8 @@ exports.search_autocomplete = function(req, res) {
       $project:{
         _id:0,
         id: "$_id",
-        label: "$name",
-        value: "$name"
+        label: '$name',
+        value: '$name'
       }
     }
   ], function (err, obj) {
